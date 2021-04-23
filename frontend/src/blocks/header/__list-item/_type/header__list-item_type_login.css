@@ -1,0 +1,11 @@
+.header__list-item_type_login {
+
+}
+
+@media screen and (max-width: 580px) {
+  .header__list-item_type_login {
+    margin-top: 7px;
+    margin-right: 30px;
+    font-size: 14px;
+  }
+}

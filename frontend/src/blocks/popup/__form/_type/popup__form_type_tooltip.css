@@ -1,0 +1,17 @@
+.popup__form_type_tooltip {
+  max-width: 358px;
+  margin: 60px 36px;
+}
+
+@media screen and (max-width: 520px) {
+  .popup__form_type_tooltip {
+    width: 308px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .popup__form_type_tooltip {
+    width: 244px;
+    margin: 50px 18px;
+  }
+}

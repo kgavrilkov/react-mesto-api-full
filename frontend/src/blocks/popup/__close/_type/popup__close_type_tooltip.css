@@ -1,0 +1,10 @@
+.popup__close_type_tooltip {
+
+}
+
+@media screen and (max-width: 350px) {
+  .popup__close_type_tooltip {
+    margin-top: -85px;
+    margin-left: -150px;
+  }  
+}

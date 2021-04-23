@@ -1,0 +1,13 @@
+.footer__paragraph {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #545454;
+}
+
+@media screen and (max-width: 320px) {
+  .footer__paragraph {
+    font-size: 14px;
+  }
+}

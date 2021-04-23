@@ -1,0 +1,21 @@
+.popup__close {
+  grid-column-start: 2;
+  margin-top: -40px;
+  margin-right: -35px;
+  width: 41px;
+  height: 41px;
+  background-image: url(../../../images/popup-close-button.svg);
+  background-position: center;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 460px) {
+  .popup__close {
+    margin-top: -25px;
+    margin-right: -25px;
+    width: 25px;
+    height: 25px;
+    background-image: url(../../../images/popup-small-close-button.svg);
+  }
+}

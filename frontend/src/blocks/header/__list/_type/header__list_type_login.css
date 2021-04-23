@@ -1,0 +1,13 @@
+.header__list_type_login {
+
+}
+
+@media screen and (max-width: 580px) {
+  .header__list_type_login {
+    grid-column: 2;
+  }
+
+  .header__list_type_login::after {
+    display: none;
+  }
+}  

@@ -1,0 +1,9 @@
+.header__container_type_login {
+  
+}
+
+@media screen and (max-width: 430px) {
+  .header__container_type_login {
+    display: grid;
+  }
+}  

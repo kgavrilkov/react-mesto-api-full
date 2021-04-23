@@ -1,0 +1,27 @@
+.button_type_add {
+  width: 150px;
+  height: 50px;
+  margin: 35px 0 35px;
+  background-image: url(../../../images/profile-add-button.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px solid #FFFFFF;
+  border-radius: 2px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1070px) {
+  .button_type_add {
+    grid-column-start: 2;
+    justify-self: center;
+    width: 340px;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .button_type_add {
+    width: 282px;
+  }
+}

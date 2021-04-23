@@ -1,0 +1,20 @@
+.header {
+  max-width: 882px;
+}
+
+.header::after {
+  content: "";
+  display: block;
+  max-width: 882px;
+  margin: 41px auto 0;
+  background-color: #545454;
+  height: 1px;
+  opacity: .7;
+  border: none;
+}
+
+@media screen and (max-width: 320px) {
+  .header::after {
+    margin: 32px 0 0;
+  }
+}

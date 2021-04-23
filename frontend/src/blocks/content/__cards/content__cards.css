@@ -1,0 +1,15 @@
+.content__cards {
+  margin: 0 calc((100% - 882px)/2) 66px;
+}
+
+@media screen and (max-width: 890px) {
+  .content__cards {
+    margin: 0 calc((100% - 582px)/2) 66px;
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .content__cards {
+    margin: 0 calc((100% - 282px)/2) 48px;
+  }
+}

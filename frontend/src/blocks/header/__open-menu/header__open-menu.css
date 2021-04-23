@@ -1,0 +1,28 @@
+.header__open-menu {
+  display: none;
+}
+
+@media screen and (max-width: 430px) {
+  .header__open-menu {
+    position: relative;
+    display: block;
+    margin-top: 5px;
+    margin-right: 30px;
+    width: 24px;
+    height: 19px;
+    border-top: 3px solid white;
+    border-right: none;
+    border-bottom: 3px solid white;
+    border-left: none;
+    cursor: pointer;
+  }
+
+  .header__open-menu::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 100%;
+    border-top: 3px solid white;
+  }
+}

@@ -1,0 +1,27 @@
+.content__profile {
+  margin: 0 199px 51px;
+}
+
+@media screen and (max-width: 745px) {
+  .content__profile {
+    margin: 0 150px 51px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .content__profile {
+    margin: 0 100px 51px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .content__profile {
+    margin: 0 50px 51px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .content__profile {
+    margin: 0 19px 36px;
+  }
+}

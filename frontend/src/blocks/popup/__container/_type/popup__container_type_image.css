@@ -1,0 +1,6 @@
+.popup__container_type_image {
+  display: grid;
+  justify-content: center;
+  max-width: 75vw;
+  background-color: transparent;
+}
