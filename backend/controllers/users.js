@@ -53,13 +53,7 @@ const login = (req, res, next) => {
         httpOnly: true,
         sameSite: true,
       });
-      res.send({
-        id: user._id,
-        name: user.name,
-        about: user.about,
-        avatar: user.avatar,
-        email: user.email,
-      });
+      res.send({ token });
     })
     .catch(() => {
       throw new UnauthorizedError('Необходима авторизация');
