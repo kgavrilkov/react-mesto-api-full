@@ -1,7 +1,6 @@
 class Api {
-  constructor({address, groupId, token}) {
+  constructor({address, token}) {
     this._address = address;
-    this._groupId = groupId;
     this._token = token;
   }
 
@@ -10,7 +9,7 @@ class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this._address}/${this._groupId}/users/me`, {
+    return fetch(`${this._address}/users/me`, {
       headers: {
         authorization: this._token
       }
@@ -19,7 +18,7 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._address}/${this._groupId}/cards`, {
+    return fetch(`${this._address}/cards`, {
       headers: {
         authorization: this._token
       }
@@ -28,7 +27,7 @@ class Api {
   }
 
   setUserInfo({name, about}) {
-    return fetch(`${this._address}/${this._groupId}/users/me`, {
+    return fetch(`${this._address}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: this._token,
@@ -43,7 +42,7 @@ class Api {
   }
 
   addCard({name, link}) {
-    return fetch(`${this._address}/${this._groupId}/cards`, {
+    return fetch(`${this._address}/cards`, {
       method: 'POST',
       headers: {
         authorization: this._token,
@@ -58,7 +57,7 @@ class Api {
   }
 
   removeCard(cardId) {
-    return fetch(`${this._address}/${this._groupId}/cards/${cardId}`, {
+    return fetch(`${this._address}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: this._token
@@ -68,7 +67,7 @@ class Api {
   }
 
   changeLikeStatus(cardId, like) {
-    return fetch(`${this._address}/${this._groupId}/cards/likes/${cardId}`, {
+    return fetch(`${this._address}/cards/likes/${cardId}`, {
       method: like ? 'PUT' : 'DELETE',
       headers: {
         authorization: this._token,
@@ -79,7 +78,7 @@ class Api {
   }
 
   setUserAvatar({avatar}) {
-    return fetch(`${this._address}/${this._groupId}/users/me/avatar`, {
+    return fetch(`${this._address}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
         authorization: this._token,
@@ -94,9 +93,8 @@ class Api {
 }
 
 const api = new Api({
-  address: 'https://mesto.nomoreparties.co/v1',
-  groupId: 'cohort-19',
-  token: '979f327c-b875-4f2f-925c-fd9cce3cb14f'
+  address: 'https://api.livecon.kirill.nomoredomains.icu',
+  token: `Bearer ${localStorage.getItem('token')}`
 });
 
 export default api;

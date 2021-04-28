@@ -9,5 +9,8 @@ node_modules
 .idea
 .vscode
 
+# Logs
+*.log
+
 # Environment variables
 .env
