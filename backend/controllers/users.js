@@ -48,7 +48,14 @@ const login = (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
-      res.send({ token });
+      res.send({
+        id: user._id,
+        name: user.name,
+        about: user.about,
+        avatar: user.avatar,
+        email: user.email,
+        token,
+      });
     })
     .catch(() => {
       throw new UnauthorizedError('Необходима авторизация');
