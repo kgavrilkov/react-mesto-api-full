@@ -52,7 +52,7 @@ function App() {
 
     api.changeLikeStatus(card._id, !isLiked)
       .then((newCard) => {
-        const newCards=cards.map((c) => c._id===newCard.data._id ? newCard.data : c);
+        const newCards=cards.map((c) => c._id===card._id ? newCard : c);
         setCards(newCards);
       })
       .catch(err => console.log(`Ошибка в статусе лайка: ${err}`)); 
