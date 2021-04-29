@@ -46,7 +46,8 @@ const likeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');
       }
-      res.status(200).send({ message: 'Лайк проставлен' });
+      res.send({ data: card });
+      // res.status(200).send({ message: 'Лайк проставлен' });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -68,7 +69,8 @@ const dislikeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');
       }
-      res.status(200).send({ message: 'Лайк удалён' });
+      res.send({ data: card });
+      // res.status(200).send({ message: 'Лайк удалён' });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
