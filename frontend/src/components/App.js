@@ -138,7 +138,7 @@ function App() {
           if (res) {
             setLoggedIn(true);
             setData({
-              email: res.data.email
+              email: res.email
             });
             history.push('/main');
           }
