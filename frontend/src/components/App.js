@@ -33,12 +33,14 @@ function App() {
   const history=useHistory();
   
   React.useEffect(() => {
-    api.getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
-  }, []);
+    if (loggedIn) {
+      api.getUserInfo()
+        .then((data) => {
+          setCurrentUser(data);
+        })
+        .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
+    } 
+  }, [loggedIn]);
 
   React.useEffect(() => {
     if (loggedIn) {
