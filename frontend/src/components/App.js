@@ -37,7 +37,7 @@ function App() {
         setCurrentUser(data);
       })
       .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
-  }, [setLoggedIn]);
+  }, []);
 
   React.useEffect(() => {
     api.getInitialCards()
