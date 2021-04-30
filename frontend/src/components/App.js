@@ -38,7 +38,7 @@ function App() {
         setCurrentUser(data);
       })
       .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
-  }, [tokenCheck, userEmail, loggedIn]);
+  }, [tokenCheck, loggedIn]);
 
   React.useEffect(() => {
     tokenCheck();
@@ -47,7 +47,7 @@ function App() {
         setCards(cardData);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-  }, [tokenCheck, userEmail, loggedIn]);
+  }, [tokenCheck, loggedIn]);
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
