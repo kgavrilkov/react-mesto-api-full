@@ -28,8 +28,7 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen]=React.useState(false);
   const [loggedIn, setLoggedIn]=React.useState(false);
   const [isRegistered, setIsRegistered]=React.useState(false);
-  const initialData={email: '', password: ''};
-  const [data, setData]=React.useState(initialData);
+  const [userEmail, setUserEmail]=React.useState('');
   const history=useHistory();
   
   React.useEffect(() => {
@@ -38,7 +37,7 @@ function App() {
         setCurrentUser(data);
       })
       .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
-  }, []);
+  }, [userEmail, loggedIn]);
 
   React.useEffect(() => {
     api.getInitialCards()
@@ -46,7 +45,7 @@ function App() {
         setCards(cardData);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-  }, [loggedIn]);
+  }, [userEmail, loggedIn]);
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
@@ -139,9 +138,7 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            setData({
-              email: res.email
-            });
+            setUserEmail(res.email);
             history.push('/main');
           }
         })
@@ -155,7 +152,7 @@ function App() {
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
-    setData(initialData);
+    setCards([]);
     setLoggedIn(false);
     setIsRegistered(false);
     history.push('/signin');
@@ -187,7 +184,7 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
           <Header 
             loggedIn={loggedIn} 
-            userEmail={data.email} 
+            userEmail={userEmail} 
             onSignOut={handleSignOut} 
           />
           <Switch>
