@@ -122,12 +122,19 @@ function App() {
   const handleLogin = ({email, password}) => {
     return auth.authorize(email, password).then(res => {
       if (res.token) {
-        localStorage.setItem('token', res.token);
         setLoggedIn(true);
-        history.push('/main');
+        auth.getContent(res.token)
+          .then((res) => {
+            if (res) {
+              setData({
+                email: res.email
+              });
+            }
+          })
+          localStorage.setItem('token', res.token);
       };
-      return res;
-    });
+    })
+      .then(() => history.push('/main'))
   }
 
   const tokenCheck = React.useCallback(() => {
