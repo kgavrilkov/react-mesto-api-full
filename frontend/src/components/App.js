@@ -198,6 +198,7 @@ function App() {
             <Route path="/signin">
               <Login
                 onLogin={handleLogin}
+                tokenCheck={tokenCheck}
               />
             </Route>
             <Route path="/signup">
