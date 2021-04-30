@@ -145,7 +145,7 @@ function App() {
         })
         .catch(() => history.push('/signin'));
     }
-  }, [])
+  }, [history])
 
   React.useEffect(() => {
     tokenCheck();
