@@ -21,6 +21,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen]=React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen]=React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen]=React.useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen]=React.useState(false);
   const [selectedCard, setSelectedCard]=React.useState();
   const [currentUser, setCurrentUser]=React.useState({name: '', about: ''});
   const [cards, setCards]=React.useState([]);
@@ -45,7 +46,7 @@ function App() {
         setCards(cardData);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-  }, [data,loggedIn]);
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
@@ -80,6 +81,7 @@ function App() {
 
   function handleCardClick(card) {
     setSelectedCard(card);
+    setIsImagePopupOpen(true);
   }
 
   function handleInfoTooltipClick() {
@@ -167,6 +169,18 @@ function App() {
     setIsInfoTooltipOpen(false);
   }
 
+  const handleEscClick = (evt) => {
+    if (evt.key==="Escape") {
+      closeAllPopups();
+    }
+  }
+
+  const handleOverlayClick = (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closeAllPopups();
+    }
+  }
+
   return (
     <div className="root">
       <div className="page">
@@ -207,21 +221,30 @@ function App() {
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar} 
+            onUpdateAvatar={handleUpdateAvatar}
+            onCloseEsc={handleEscClick}
+            onCloseOverlay={handleOverlayClick} 
           />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser} 
+            onUpdateUser={handleUpdateUser}
+            onCloseEsc={handleEscClick}
+            onCloseOverlay={handleOverlayClick} 
           />
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
+            onCloseEsc={handleEscClick}
+            onCloseOverlay={handleOverlayClick}
           />
           <ImagePopup
+            isOpen={isImagePopupOpen}
             card={selectedCard} 
             onClose={closeAllPopups}
+            onCloseEsc={handleEscClick}
+            onCloseOverlay={handleOverlayClick}
           />
           <DeleteCardPopup
             onClose={closeAllPopups}
