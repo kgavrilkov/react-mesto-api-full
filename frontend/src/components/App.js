@@ -45,7 +45,7 @@ function App() {
         setCards(cardData);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-  }, [setLoggedIn(true)]);
+  }, [setLoggedIn]);
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
