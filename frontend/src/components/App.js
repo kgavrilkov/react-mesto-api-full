@@ -42,7 +42,7 @@ function App() {
   React.useEffect(() => {
     api.getInitialCards()
       .then((cardData) => {
-        setCards(cardData);
+        setCards(cardData).reverse();
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
   }, []);
