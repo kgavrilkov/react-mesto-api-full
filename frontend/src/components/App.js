@@ -155,7 +155,7 @@ function App() {
 
   React.useEffect(() => {
     tokenCheck();
-  }, [tokenCheck]);
+  }, []);
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
