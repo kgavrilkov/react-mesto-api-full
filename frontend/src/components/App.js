@@ -130,7 +130,7 @@ function App() {
     });
   }
 
-  const tokenCheck = React.useCallback(() => {
+  const tokenCheck = () => {
     const token=localStorage.getItem('token');
     if (token) {
       auth.getContent(token)
@@ -145,11 +145,11 @@ function App() {
         })
         .catch(() => history.push('/signin'));
     }
-  }, [history])
+  }
 
   React.useEffect(() => {
     tokenCheck();
-  }, [tokenCheck, loggedIn]);
+  },[]);
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
