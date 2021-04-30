@@ -122,22 +122,15 @@ function App() {
   const handleLogin = ({email, password}) => {
     return auth.authorize(email, password).then(res => {
       if (res.token) {
+        localStorage.setItem('token', res.token);
         setLoggedIn(true);
-        auth.getContent(res.token)
-          .then((res) => {
-            if (res) {
-              setData({
-                email: res.email
-              });
-            }
-          })
-          localStorage.setItem('token', res.token);
+        history.push('/main');
       };
-    })
-      .then(() => history.push('/main'))
+      return res;
+    });
   }
 
-  const tokenCheck = () => {
+  const tokenCheck = React.useCallback(() => {
     const token=localStorage.getItem('token');
     if (token) {
       auth.getContent(token)
@@ -152,11 +145,11 @@ function App() {
         })
         .catch(() => history.push('/signin'));
     }
-  }
+  }, [history])
 
   React.useEffect(() => {
     tokenCheck();
-  }, []);
+  }, [tokenCheck, loggedIn]);
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
@@ -198,7 +191,6 @@ function App() {
             <Route path="/signin">
               <Login
                 onLogin={handleLogin}
-                tokenCheck={tokenCheck}
               />
             </Route>
             <Route path="/signup">

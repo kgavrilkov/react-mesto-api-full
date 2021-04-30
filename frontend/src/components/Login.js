@@ -1,6 +1,6 @@
 import React from 'react'; 
 
-function Login({onLogin, tokenCheck}) {
+function Login({onLogin}) {
   const initialData={email: '', password: ''}
   const [data, setData]=React.useState(initialData);
 
