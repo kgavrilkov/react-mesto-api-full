@@ -41,12 +41,14 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    api.getInitialCards()
-      .then((cardData) => {
-        setCards(cardData);
-      })
-      .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-  }, []);
+    if (loggedIn) {
+      api.getInitialCards()
+        .then((cardData) => {
+          setCards(cardData);
+        })
+        .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
+    }
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
