@@ -1,6 +1,11 @@
 import React from 'react';
 
-function PopupWithForm({name, isOpen, title, children, onClose, buttonText='Сохранить', onSubmit, onCloseOverlay}) {
+function PopupWithForm({name, isOpen, title, children, onClose, buttonText='Сохранить', onSubmit, onCloseEsc, onCloseOverlay}) {
+  React.useEffect(() => {
+    if (isOpen) {document.addEventListener("keydown", onCloseEsc)}
+    return (() => {document.removeEventListener("keydown", onCloseEsc)})
+  })
+  
   return (
     <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`} onClick={onCloseOverlay}>
       <div className="popup__container">
