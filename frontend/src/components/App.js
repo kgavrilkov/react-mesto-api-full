@@ -33,16 +33,16 @@ function App() {
   
   React.useEffect(() => {
     api.getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
+      .then((res) => {
+        setCurrentUser(res);
       })
       .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
   }, []);
 
   React.useEffect(() => {
     api.getInitialCards()
-      .then((cardData) => {
-        setCards(cardData).reverse();
+      .then((res) => {
+        setCards(res);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
   }, []);
