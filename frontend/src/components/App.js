@@ -32,22 +32,20 @@ function App() {
   const history=useHistory();
   
   React.useEffect(() => {
-    tokenCheck();
     api.getUserInfo()
       .then((data) => {
         setCurrentUser(data);
       })
       .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
-  }, []);
+  }, [setLoggedIn]);
 
   React.useEffect(() => {
-    tokenCheck();
     api.getInitialCards()
       .then((cardData) => {
         setCards(cardData);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-  }, []);
+  }, [setLoggedIn]);
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
