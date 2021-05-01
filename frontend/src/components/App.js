@@ -118,7 +118,8 @@ function App() {
 
   const handleRegister = ({email, password}) => {
     return auth.register(email, password).then(res => {
-      if (!res) {
+      if (!res || res.statusCode===400) {
+        new Error('Что-то пошло не так!');
         handleInfoTooltipClick();
         setIsInfoTooltipType(false);
       }
@@ -128,6 +129,10 @@ function App() {
       history.push('/signin');
       return res;
       }
+    })
+    .catch((err) => {
+      handleInfoTooltipClick();
+      setIsInfoTooltipType(false);
     });
   }
 
