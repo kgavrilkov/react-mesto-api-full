@@ -118,6 +118,10 @@ function App() {
 
   const handleRegister = ({email, password}) => {
     return auth.register(email, password).then(res => {
+      if (!res || !res.ok) {
+        setIsRegistered(false);
+        handleInfoTooltipClick();
+      }
       setIsRegistered(true);
       handleInfoTooltipClick();
       history.push('/signin');
