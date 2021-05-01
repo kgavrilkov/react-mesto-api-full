@@ -26,7 +26,7 @@ function Login({onLogin}) {
 
   return (
     <div className="login">
-      <form className="login__form" onSubmit={handleSubmit} noValidate>
+      <form className="login__form" onSubmit={handleSubmit}>
         <h2 className="login__heading">Вход</h2>
         <input className="login__input" type="email" name="email" 
         value={data.email} onChange={handleChange} required placeholder="Email" />

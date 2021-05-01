@@ -26,8 +26,8 @@ function App() {
   const [currentUser, setCurrentUser]=React.useState({name: '', about: ''});
   const [cards, setCards]=React.useState([]);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen]=React.useState(false);
+  const [isInfoTooltipType, setIsInfoTooltipType]=React.useState(false);
   const [loggedIn, setLoggedIn]=React.useState(false);
-  const [isRegistered, setIsRegistered]=React.useState(false);
   const initialData={email: '', password: ''};
   const [data, setData]=React.useState(initialData);
   const history=useHistory();
@@ -118,12 +118,13 @@ function App() {
 
   const handleRegister = ({email, password}) => {
     return auth.register(email, password).then(res => {
-      if (res.email || res.password) {
-        setIsRegistered(false);
+      if (!res || !res.ok) {
         handleInfoTooltipClick();
+        setIsInfoTooltipType(false);
       }
-      setIsRegistered(true);
+      if (res.ok)
       handleInfoTooltipClick();
+      setIsInfoTooltipType(true);
       history.push('/signin');
       return res;
     });
@@ -131,11 +132,13 @@ function App() {
 
   const handleLogin = ({email, password}) => {
     return auth.authorize(email, password).then(res => {
-      if (res.token) {
-        localStorage.setItem('token', res.token);
-        setLoggedIn(true);
-        history.push('/main');
+      if (!res.token) {
+        handleInfoTooltipClick();
+        setIsInfoTooltipType(false);
       };
+      localStorage.setItem('token', res.token);
+      setLoggedIn(true);
+      history.push('/main');
       return res;
     });
   }
@@ -165,7 +168,6 @@ function App() {
     localStorage.removeItem('token');
     setData(initialData);
     setLoggedIn(false);
-    setIsRegistered(false);
     history.push('/signin');
   }
 
@@ -258,7 +260,7 @@ function App() {
             onClose={closeAllPopups}
           />
           <InfoTooltip
-            isRegistered={isRegistered}
+            isRegistered={isInfoTooltipType}
             isOpen={isInfoTooltipOpen}
             onClose={closeAllPopups} 
           />

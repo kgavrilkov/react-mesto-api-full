@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-function Register({onInfoTooltip, onRegister}) {
+function Register({onRegister}) {
   const initialData={email: '', password: ''};
   const [data, setData]=React.useState(initialData);
 
@@ -16,20 +16,18 @@ function Register({onInfoTooltip, onRegister}) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (!data.email || !data.password) {
-      onInfoTooltip();
       return;
     }
 
     onRegister(data)
       .catch(err => {
         console.log(`Некорректно заполнено одно из полей: ${err}`); 
-        onInfoTooltip();
       })
   }    
 
   return (
     <div className="register">
-      <form className="register__form" onSubmit={handleSubmit} noValidate>
+      <form className="register__form" onSubmit={handleSubmit}>
         <h2 className="register__heading">Регистрация</h2>
         <input className="register__input" type="email" name="email" 
         value={data.email} onChange={handleChange} required placeholder="Email" />
