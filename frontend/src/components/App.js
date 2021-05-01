@@ -118,7 +118,7 @@ function App() {
 
   const handleRegister = ({email, password}) => {
     return auth.register(email, password).then(res => {
-      if (!res || !res.ok) {
+      if (res.email || res.password) {
         setIsRegistered(false);
         handleInfoTooltipClick();
       }
