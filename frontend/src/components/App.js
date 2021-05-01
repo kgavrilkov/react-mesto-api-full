@@ -219,7 +219,6 @@ function App() {
             </Route>
             <Route path="/signup">
               <Register
-                onInfoTooltip={handleInfoTooltipClick}
                 onRegister={handleRegister} 
               />
             </Route>
