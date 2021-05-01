@@ -120,8 +120,6 @@ function App() {
     return auth.register(email, password).then(res => {
       if (!res || res.statusCode===400) {
         new Error('Что-то пошло не так!');
-        //handleInfoTooltipClick();
-        //setIsInfoTooltipType(false);
       }
       if (res) {
       handleInfoTooltipClick();
@@ -138,12 +136,17 @@ function App() {
 
   const handleLogin = ({email, password}) => {
     return auth.authorize(email, password).then(res => {
+      if (!res || res.statusCode===400) {
+        new Error('Что-то пошло не так!');
+      }
       if (res.token) {
         localStorage.setItem('token', res.token);
         setLoggedIn(true);
         history.push('/main');
         return res;
-      };
+      }
+    })
+    .catch((err) => {
       handleInfoTooltipClick();
       setIsInfoTooltipType(false);
     });
