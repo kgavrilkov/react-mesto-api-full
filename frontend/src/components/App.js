@@ -118,11 +118,11 @@ function App() {
 
   const handleRegister = ({email, password}) => {
     return auth.register(email, password).then(res => {
-      if (!res || !res.ok) {
+      if (!res) {
         handleInfoTooltipClick();
         setIsInfoTooltipType(false);
       }
-      if (res.ok)
+      if (res)
       handleInfoTooltipClick();
       setIsInfoTooltipType(true);
       history.push('/signin');
@@ -132,14 +132,14 @@ function App() {
 
   const handleLogin = ({email, password}) => {
     return auth.authorize(email, password).then(res => {
-      if (!res.token) {
-        handleInfoTooltipClick();
-        setIsInfoTooltipType(false);
+      if (res.token) {
+        localStorage.setItem('token', res.token);
+        setLoggedIn(true);
+        history.push('/main');
+        return res;
       };
-      localStorage.setItem('token', res.token);
-      setLoggedIn(true);
-      history.push('/main');
-      return res;
+      handleInfoTooltipClick();
+      setIsInfoTooltipType(false);
     });
   }
 
