@@ -122,11 +122,12 @@ function App() {
         handleInfoTooltipClick();
         setIsInfoTooltipType(false);
       }
-      if (res)
+      if (res) {
       handleInfoTooltipClick();
       setIsInfoTooltipType(true);
       history.push('/signin');
       return res;
+      }
     });
   }
 
