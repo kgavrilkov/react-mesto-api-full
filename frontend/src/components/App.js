@@ -94,7 +94,7 @@ function App() {
         setCurrentUser(data);
       })
       .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
-  }, [tokenCheck, loggedIn]);
+  }, [loggedIn]);
 
   React.useEffect(() => {
     const token=localStorage.getItem('token');
@@ -103,7 +103,7 @@ function App() {
         setCards(cardData);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-  }, [tokenCheck, loggedIn]);
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
@@ -197,80 +197,80 @@ function App() {
   }
 
   return (
-    <div className="root">
-      <div className="page">
-        <CurrentUserContext.Provider value={currentUser}>
-          <Header 
-            loggedIn={loggedIn} 
-            userEmail={data.email} 
-            onSignOut={handleSignOut} 
-          />
-          <Switch>
-            <ProtectedRoute path="/main" 
-              component={Main}
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="root">
+        <div className="page">
+            <Header 
               loggedIn={loggedIn} 
-              onEditAvatar={handleEditAvatarClick}
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              onCardDelete={handleCardDelete}
-              onCardLike={handleCardLike}
-              cards={cards}
+              userEmail={data.email} 
+              onSignOut={handleSignOut} 
             />
-            <Route path="/signin">
-              <Login
-                onLogin={handleLogin}
+            <Switch>
+              <ProtectedRoute path="/main" 
+                component={Main}
+                loggedIn={loggedIn} 
+                onEditAvatar={handleEditAvatarClick}
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                onCardDelete={handleCardDelete}
+                onCardLike={handleCardLike}
+                cards={cards}
               />
-            </Route>
-            <Route path="/signup">
-              <Register
-                onRegister={handleRegister} 
-              />
-            </Route>
-            <Route>
-              {loggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
-            </Route>
-          </Switch>
-          <Footer />
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}
-            onCloseEsc={handleEscClick}
-            onCloseOverlay={handleOverlayClick} 
-          />
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-            onCloseEsc={handleEscClick}
-            onCloseOverlay={handleOverlayClick} 
-          />
-          <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}
-            onAddPlace={handleAddPlaceSubmit}
-            onCloseEsc={handleEscClick}
-            onCloseOverlay={handleOverlayClick}
-          />
-          <ImagePopup
-            isOpen={isImagePopupOpen}
-            card={selectedCard} 
-            onClose={closeAllPopups}
-            onCloseEsc={handleEscClick}
-            onCloseOverlay={handleOverlayClick}
-          />
-          <DeleteCardPopup
-            onClose={closeAllPopups}
-          />
-          <InfoTooltip
-            isRegistered={isInfoTooltipType}
-            isOpen={isInfoTooltipOpen}
-            onClose={closeAllPopups} 
-          />
-        </CurrentUserContext.Provider>
-      </div>  
-    </div>
+              <Route path="/signin">
+                <Login
+                  onLogin={handleLogin}
+                />
+              </Route>
+              <Route path="/signup">
+                <Register
+                  onRegister={handleRegister} 
+                />
+              </Route>
+              <Route>
+                {loggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
+              </Route>
+            </Switch>
+            <Footer />
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+              onCloseEsc={handleEscClick}
+              onCloseOverlay={handleOverlayClick} 
+            />
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+              onCloseEsc={handleEscClick}
+              onCloseOverlay={handleOverlayClick} 
+            />
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleAddPlaceSubmit}
+              onCloseEsc={handleEscClick}
+              onCloseOverlay={handleOverlayClick}
+            />
+            <ImagePopup
+              isOpen={isImagePopupOpen}
+              card={selectedCard} 
+              onClose={closeAllPopups}
+              onCloseEsc={handleEscClick}
+              onCloseOverlay={handleOverlayClick}
+            />
+            <DeleteCardPopup
+              onClose={closeAllPopups}
+            />
+            <InfoTooltip
+              isRegistered={isInfoTooltipType}
+              isOpen={isInfoTooltipOpen}
+              onClose={closeAllPopups} 
+            />
+        </div>  
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
