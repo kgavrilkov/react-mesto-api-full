@@ -88,22 +88,22 @@ function App() {
   }
   
   React.useEffect(() => {
-    api.getUserInfo()
+    const token=localStorage.getItem('token');
+    api.getUserInfo(token)
       .then((data) => {
-        tokenCheck();
         setCurrentUser(data);
       })
       .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
-  }, [tokenCheck, loggedIn]);
+  }, []);
 
   React.useEffect(() => {
-    api.getInitialCards()
+    const token=localStorage.getItem('token');
+    api.getInitialCards(token)
       .then((cardData) => {
-        tokenCheck();
         setCards(cardData);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-  }, [tokenCheck, loggedIn]);
+  }, []);
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
