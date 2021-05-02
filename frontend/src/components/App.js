@@ -23,7 +23,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen]=React.useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen]=React.useState(false);
   const [selectedCard, setSelectedCard]=React.useState();
-  const [currentUser, setCurrentUser]=React.useState({name: '', about: ''});
+  const [currentUser, setCurrentUser]=React.useState({name: '', about: '', avatar: ''});
   const [cards, setCards]=React.useState([]);
   const [classPageLoad, setClassPageLoad]=React.useState('hidden');
   const [isInfoTooltipOpen, setIsInfoTooltipOpen]=React.useState(false);
