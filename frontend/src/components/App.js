@@ -36,7 +36,7 @@ function App() {
     if (loggedIn) {
       api.getUserInfo()
         .then((data) => {
-          setCurrentUser(data);
+          setCurrentUser(data[1].user);
         })
         .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
     } 
@@ -45,8 +45,8 @@ function App() {
   React.useEffect(() => {
     if (loggedIn) {
       api.getInitialCards()
-        .then((cardData) => {
-          setCards(cardData);
+        .then((data) => {
+          setCards(data[0]);
         })
         .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
     }
