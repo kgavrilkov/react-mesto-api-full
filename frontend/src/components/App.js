@@ -31,6 +31,61 @@ function App() {
   const initialData={email: '', password: ''};
   const [data, setData]=React.useState(initialData);
   const history=useHistory();
+
+  const tokenCheck = React.useCallback(() => {
+    const token=localStorage.getItem('token');
+    if (token) {
+      auth.getContent(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setData(res); 
+            history.push('/main');
+          }
+        })
+        .catch(() => history.push('/signin'));
+    }
+  }, [history])
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, [tokenCheck, loggedIn]);
+
+  const handleRegister = ({email, password}) => {
+    return auth.register(email, password).then(res => {
+      if (!res || res.statusCode===400) {
+        new Error('Что-то пошло не так!');
+      }
+      if (res) {
+      handleInfoTooltipClick();
+      setIsInfoTooltipType(true);
+      history.push('/signin');
+      return res;
+      }
+    })
+    .catch((err) => {
+      handleInfoTooltipClick();
+      setIsInfoTooltipType(false);
+    });
+  }
+
+  const handleLogin = ({email, password}) => {
+    return auth.authorize(email, password).then(res => {
+      if (!res || res.statusCode===400) {
+        new Error('Что-то пошло не так!');
+      }
+      if (res.token) {
+        localStorage.setItem('token', res.token);
+        setLoggedIn(true);
+        history.push('/main');
+        return res;
+      }
+    })
+    .catch((err) => {
+      handleInfoTooltipClick();
+      setIsInfoTooltipType(false);
+    });
+  }
   
   React.useEffect(() => {
     if (loggedIn) {
@@ -115,61 +170,6 @@ function App() {
       })
       .catch(err => console.log(`Ошибка добавления карточки: ${err}`));
   }
-
-  const handleRegister = ({email, password}) => {
-    return auth.register(email, password).then(res => {
-      if (!res || res.statusCode===400) {
-        new Error('Что-то пошло не так!');
-      }
-      if (res) {
-      handleInfoTooltipClick();
-      setIsInfoTooltipType(true);
-      history.push('/signin');
-      return res;
-      }
-    })
-    .catch((err) => {
-      handleInfoTooltipClick();
-      setIsInfoTooltipType(false);
-    });
-  }
-
-  const handleLogin = ({email, password}) => {
-    return auth.authorize(email, password).then(res => {
-      if (!res || res.statusCode===400) {
-        new Error('Что-то пошло не так!');
-      }
-      if (res.token) {
-        localStorage.setItem('token', res.token);
-        setLoggedIn(true);
-        history.push('/main');
-        return res;
-      }
-    })
-    .catch((err) => {
-      handleInfoTooltipClick();
-      setIsInfoTooltipType(false);
-    });
-  }
-
-  const tokenCheck = React.useCallback(() => {
-    const token=localStorage.getItem('token');
-    if (token) {
-      auth.getContent(token)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            setData(res); 
-            history.push('/main');
-          }
-        })
-        .catch(() => history.push('/signin'));
-    }
-  }, [history])
-
-  React.useEffect(() => {
-    tokenCheck();
-  }, [tokenCheck, loggedIn]);
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
