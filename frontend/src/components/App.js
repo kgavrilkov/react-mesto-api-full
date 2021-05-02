@@ -92,8 +92,8 @@ function App() {
     setClassPageLoad('hidden');
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then((data) => {
-        setCurrentUser(data);
-        setCards(data);
+        setCards(data[0]);
+        setCurrentUser(data[1].user);
       })
       .catch(err => console.log(err))
       .finally(() => setClassPageLoad('visible'))
