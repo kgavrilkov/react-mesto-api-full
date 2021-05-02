@@ -45,8 +45,8 @@ function App() {
   React.useEffect(() => {
     if (loggedIn) {
       api.getInitialCards()
-        .then((data) => {
-          setCards(data);
+        .then((cardData) => {
+          setCards(cardData);
         })
         .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
     }
