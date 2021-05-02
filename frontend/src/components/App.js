@@ -88,18 +88,18 @@ function App() {
   }
   
   React.useEffect(() => {
-    tokenCheck();
     api.getUserInfo()
       .then((data) => {
+        tokenCheck();
         setCurrentUser(data);
       })
       .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
   }, [tokenCheck, loggedIn]);
 
   React.useEffect(() => {
-    tokenCheck();
     api.getInitialCards()
       .then((cardData) => {
+        tokenCheck();
         setCards(cardData);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
