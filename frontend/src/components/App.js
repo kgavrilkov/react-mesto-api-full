@@ -25,6 +25,7 @@ function App() {
   const [selectedCard, setSelectedCard]=React.useState();
   const [currentUser, setCurrentUser]=React.useState({name: '', about: ''});
   const [cards, setCards]=React.useState([]);
+  const [classPageLoad, setClassPageLoad]=React.useState('hidden');
   const [isInfoTooltipOpen, setIsInfoTooltipOpen]=React.useState(false);
   const [isInfoTooltipType, setIsInfoTooltipType]=React.useState(true);
   const [loggedIn, setLoggedIn]=React.useState(false);
@@ -88,22 +89,23 @@ function App() {
   }
   
   React.useEffect(() => {
-    const token=localStorage.getItem('token');
-    api.getUserInfo(token)
+    setClassPageLoad('hidden');
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then((data) => {
         setCurrentUser(data);
+        setCards(data);
       })
-      .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
-  }, [loggedIn]);
+      .catch(err => console.log(err))
+      .finally(() => setClassPageLoad('visible'))
+  }, []);
 
-  React.useEffect(() => {
-    const token=localStorage.getItem('token');
-    api.getInitialCards(token)
+  /*React.useEffect(() => {
+    api.getInitialCards()
       .then((cardData) => {
         setCards(cardData);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-  }, [loggedIn]);
+  }, []);*/
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
@@ -199,7 +201,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
-        <div className="page">
+        <div className={`page ${classPageLoad}`}>
             <Header 
               loggedIn={loggedIn} 
               userEmail={data.email} 
