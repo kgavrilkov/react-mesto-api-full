@@ -36,7 +36,7 @@ function App() {
     if (loggedIn) {
       api.getUserInfo()
         .then((data) => {
-          setCurrentUser(data[1].user);
+          setCurrentUser(data);
         })
         .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
     } 
@@ -46,7 +46,7 @@ function App() {
     if (loggedIn) {
       api.getInitialCards()
         .then((data) => {
-          setCards(data[0]);
+          setCards(data);
         })
         .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
     }
