@@ -21,16 +21,15 @@ onCardLike, onCardDelete}) {
         onClick={onAddPlace}></button>
       </section>
       <section className="cards content__cards">
-        {cards.map((card) => {
-          return (
+        {cards.map((card, card_id) => (
           <Card
-            key={card._id}
+            key={card_id}
             card={card}
             onCardClick={onCardClick}
             onCardLike={onCardLike}
             onCardDelete={onCardDelete} 
-          />)
-        })}
+          />
+        ))}
       </section>
     </main>
   );

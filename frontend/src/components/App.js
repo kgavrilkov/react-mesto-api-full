@@ -23,9 +23,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen]=React.useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen]=React.useState(false);
   const [selectedCard, setSelectedCard]=React.useState();
-  const [currentUser, setCurrentUser]=React.useState({name: '', about: '', avatar: ''});
+  const [currentUser, setCurrentUser]=React.useState({name: '', about: ''});
   const [cards, setCards]=React.useState([]);
-  const [classPageLoad, setClassPageLoad]=React.useState('hidden');
   const [isInfoTooltipOpen, setIsInfoTooltipOpen]=React.useState(false);
   const [isInfoTooltipType, setIsInfoTooltipType]=React.useState(true);
   const [loggedIn, setLoggedIn]=React.useState(false);
@@ -89,23 +88,20 @@ function App() {
   }
   
   React.useEffect(() => {
-    setClassPageLoad('hidden');
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
+    api.getUserInfo()
       .then((data) => {
-        setCards(data[0]);
-        setCurrentUser(data[1].user);
+        setCurrentUser(data);
       })
-      .catch(err => console.log(err))
-      .finally(() => setClassPageLoad('visible'))
+      .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
   }, []);
 
-  /*React.useEffect(() => {
+  React.useEffect(() => {
     api.getInitialCards()
       .then((cardData) => {
         setCards(cardData);
       })
       .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-  }, []);*/
+  }, []);
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
@@ -201,7 +197,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
-        <div className={`page ${classPageLoad}`}>
+        <div className="page">
             <Header 
               loggedIn={loggedIn} 
               userEmail={data.email} 
@@ -233,8 +229,7 @@ function App() {
                 {loggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
               </Route>
             </Switch>
-            <Footer />
-        </div>    
+            <Footer />  
             <EditAvatarPopup
               isOpen={isEditAvatarPopupOpen}
               onClose={closeAllPopups}
@@ -270,7 +265,8 @@ function App() {
               isRegistered={isInfoTooltipType}
               isOpen={isInfoTooltipOpen}
               onClose={closeAllPopups} 
-            /> 
+            />
+        </div>     
       </div>
     </CurrentUserContext.Provider>
   );
