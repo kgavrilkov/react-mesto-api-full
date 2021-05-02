@@ -88,6 +88,7 @@ function App() {
   }
   
   React.useEffect(() => {
+    tokenCheck();
     if (loggedIn) {
       api.getUserInfo()
         .then((data) => {
@@ -95,9 +96,10 @@ function App() {
         })
         .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
     } 
-  }, [loggedIn]);
+  }, [tokenCheck, loggedIn]);
 
   React.useEffect(() => {
+    tokenCheck();
     if (loggedIn) {
       api.getInitialCards()
         .then((cardData) => {
@@ -105,7 +107,7 @@ function App() {
         })
         .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
     }
-  }, [loggedIn]);
+  }, [tokenCheck, loggedIn]);
 
   function handleCardLike(card) {
     const isLiked=card.likes.some(item => item===currentUser._id);
