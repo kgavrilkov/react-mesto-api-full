@@ -89,24 +89,20 @@ function App() {
   
   React.useEffect(() => {
     tokenCheck();
-    if (loggedIn) {
-      api.getUserInfo()
-        .then((data) => {
-          setCurrentUser(data);
-        })
-        .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
-    } 
+    api.getUserInfo()
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch(err => console.log(`Ошибка в информации о пользователе: ${err}`));
   }, [tokenCheck, loggedIn]);
 
   React.useEffect(() => {
     tokenCheck();
-    if (loggedIn) {
-      api.getInitialCards()
-        .then((cardData) => {
-          setCards(cardData);
-        })
-        .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
-    }
+    api.getInitialCards()
+      .then((cardData) => {
+        setCards(cardData);
+      })
+      .catch(err => console.log(`Ошибка при загрузке карточек: ${err}`));
   }, [tokenCheck, loggedIn]);
 
   function handleCardLike(card) {
