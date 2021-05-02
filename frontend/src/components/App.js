@@ -234,6 +234,7 @@ function App() {
               </Route>
             </Switch>
             <Footer />
+        </div>    
             <EditAvatarPopup
               isOpen={isEditAvatarPopupOpen}
               onClose={closeAllPopups}
@@ -269,8 +270,7 @@ function App() {
               isRegistered={isInfoTooltipType}
               isOpen={isInfoTooltipOpen}
               onClose={closeAllPopups} 
-            />
-        </div>  
+            /> 
       </div>
     </CurrentUserContext.Provider>
   );
