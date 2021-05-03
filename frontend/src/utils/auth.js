@@ -24,6 +24,14 @@ export const authorize = (identifier, password) => {
     body: JSON.stringify({email: identifier, password: password})
   })
     .then(responseCheck)
+    .then((data) => {
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        return data;
+      } else {
+        return;
+      }
+    })
 };
 
 export const getContent = (token) => {
