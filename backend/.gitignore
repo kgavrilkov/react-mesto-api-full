@@ -10,7 +10,7 @@ node_modules
 .vscode
 
 # Logs
-*.log
+#*.log
 
 # Environment variables
 #.env
