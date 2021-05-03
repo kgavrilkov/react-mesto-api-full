@@ -75,12 +75,17 @@ function App() {
         new Error('Что-то пошло не так!');
       }
       if (res.token) {
-        localStorage.setItem('token', res.token);
         setLoggedIn(true);
-        history.push('/main');
-        return res;
+        auth.getContent(res.token)
+          .then((res) => {
+            if (res) {
+              setData(res)
+            }
+          })
+          localStorage.setItem('token', res.token);
       }
     })
+    .then(() => history.push('/main'))
     .catch((err) => {
       handleInfoTooltipClick();
       setIsInfoTooltipType(false);
